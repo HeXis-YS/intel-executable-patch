@@ -1,6 +1,6 @@
 # intel-executable-patch
 
-A python script that can patch executables and libraries compiled with Intel compiler (or Intel MKL), for better performance on **ANY** X86 processors.
+A python script that can patch executables and libraries compiled with Intel compiler (or Intel MKL), for better performance on **ANY non-Intel** X86 processors.
 
 Before running the script, **make backup copies of your binaries**! This is because the patching is irreversible and it might break softwares.
 **Use it at your own risk.**
