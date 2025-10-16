@@ -27,19 +27,18 @@ def main():
             # if data[after] == 0x74:
             #     data[after] = 0xEB
             # elif data[after] == 0x75:
-            #     data[after:after+2] = b"\x90" * 2
-            if data[after] == 0x0F:
-                if data[after+1] == 0x84:
-                    data[after:after+2] = b"\x90\xE9"
-                elif data[after+1] == 0x85:
-                    data[after:after+6] = b"\x90" * 6
-            elif data[idx-2] == 0x81:
-                if data[idx-1] == 0xF3:
-                    data[idx-2:after] = b"\x31\xDB" + b"\x90" * plen
-                elif data[idx-1] == 0xF1:
-                    data[idx-2:after] = b"\x31\xC9" + b"\x90" * plen
-                elif data[idx-1] == 0xF2:
-                    data[idx-2:after] = b"\x31\xD2" + b"\x90" * plen
+            #     data[after:after+2] = b"\x90\x90"
+            if data[after:after+2] == b"\x0F\x84":
+                data[after:after+2] = b"\x90\xE9"
+            elif data[after:after+2] == b"\x0F\x85":
+                data[after:after+6] = b"\x90\x90\x90\x90\x90\x90"
+            elif data[idx-2:idx] == b"\x81\xF3" and pattern == b"Genu":
+                data[idx-2:after] = b"\x31\xDB" + b"\x90" * plen
+            elif data[idx-2:idx] == b"\x81\xF2" and pattern == b"ineI":
+                data[idx-2:after] = b"\x31\xD2" + b"\x90" * plen
+            elif data[idx-2:idx] == b"\x81\xF1" and pattern == b"ntel":
+                data[idx-2:after] = b"\x31\xC9" + b"\x90" * plen
+
             i = idx + 1
 
     with open(path, "wb") as f:
